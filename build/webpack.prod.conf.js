@@ -7,7 +7,7 @@ const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const InlineRuntimePlugin = require('./inline-runtime-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
@@ -70,10 +70,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       // in certain cases, and in webpack 4, chunk order in HTML doesn't
       // matter anyway
     }),
-    new ScriptExtHtmlWebpackPlugin({
-      //`runtime` must same as runtimeChunk name. default is `runtime`
-      inline: /runtime\..*\.js$/
-    }),
+    new InlineRuntimePlugin(),
     // keep chunk.id stable when chunk has no name
     new webpack.NamedChunksPlugin(chunk => {
       if (chunk.name) {
