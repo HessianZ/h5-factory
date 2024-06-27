@@ -17,11 +17,14 @@
             </el-option>
           </el-select>
         </el-form-item>
+        <el-form-item class="small" label="选项列表：" v-show="input.type === 'select' || input.type === 'radio' || input.type === 'checkbox'">
+          <el-input v-model="input.options" placeholder="选项列表，多个用英文逗号分隔"></el-input>
+        </el-form-item>
         <el-form-item class="small" label="是否必填：">
           <el-radio v-model="input.isNecessary" :label="1">是</el-radio>
           <el-radio v-model="input.isNecessary" :label="0">否</el-radio>
         </el-form-item>
-        <el-form-item class="small" label="为空提示：">
+        <el-form-item class="small" label="为空提示：" v-show="!(input.type === 'select' || input.type === 'radio' || input.type === 'checkbox')">
           <el-input v-model="input.placeholder" :maxlength="128" placeholder="为空提示文案"></el-input>
         </el-form-item>
         <div class="list-item-opt">
